@@ -1,0 +1,26 @@
+name: integration-tests
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Specifies the branch which the integration tests should run on.'
+        required: true
+        default: 'releases/v4'
+  schedule:
+    - cron: 30 14 * * 0-6
+  push:
+    tags-ignore:
+      - '*.*'
+    branches:
+      - releases/v4
+
+jobs:
+  integration-branch-creation:
+    needs: integration-clean
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Generated Branch
+        uses: dawidd6/action-delete-branch@v2.0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branches: gh-pages
