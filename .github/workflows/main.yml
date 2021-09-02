@@ -6,7 +6,6 @@ on:
 
 jobs:
   integration-branch-creation:
-    needs: integration-clean
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup Generated Branch
